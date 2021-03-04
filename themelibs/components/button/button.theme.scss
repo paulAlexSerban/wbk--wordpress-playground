@@ -1,0 +1,11 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+
+$component: 'button';
+
+.#{$component} {
+  &__base {
+    color: red;
+  }
+}
