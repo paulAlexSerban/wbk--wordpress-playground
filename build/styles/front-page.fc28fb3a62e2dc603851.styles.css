@@ -436,12 +436,6 @@ body {
   width: 1px;
 }
 
-.blog-page__base {
-  background-color: red;
-}
-.post__base {
-  color: red;
-}
-.button__base {
-  color: red;
+.front-page__base {
+  background-color: pink;
 }
