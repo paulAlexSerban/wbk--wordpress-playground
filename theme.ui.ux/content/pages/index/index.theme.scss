@@ -1,0 +1,13 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the blog page.
+// -----------------------------------------------------------------------------
+@import '../../../common/main.scss';
+
+$page: 'index';
+
+.#{$page} {
+  &__main {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}

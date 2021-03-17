@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php 
+
+get_template_part( './theme.ui.ux/content/layout/header/header' );
+themeFiles('/page/');
+
+?>
 
 <?php 
     while(have_posts()) {
@@ -13,4 +18,4 @@
 <?php 
     }?>
 
-<?php get_footer(); ?>
+<?php get_template_part( './theme.ui.ux/content/layout/footer/footer' ); ?>

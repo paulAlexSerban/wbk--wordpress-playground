@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build": "webpack --config ./theme.ui.ux/config/webpack.config.js",
     "watch": "webpack serve --hot"
   },
   "author": "Paul Serban <serban.paul.91@gmail.com>",

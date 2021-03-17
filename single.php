@@ -1,4 +1,7 @@
-<?php get_header(); ?>
+<?php 
+get_template_part( './theme.ui.ux/content/layout/header/header' );
+themeFiles('/single/');
+?>
 
 <?php 
     while(have_posts()) {
@@ -9,4 +12,4 @@
 <?php the_content(); ?>
 <?php }?>
 
-<?php get_footer(); ?>
+<?php get_template_part( './theme.ui.ux/content/layout/footer/footer' ); ?>
