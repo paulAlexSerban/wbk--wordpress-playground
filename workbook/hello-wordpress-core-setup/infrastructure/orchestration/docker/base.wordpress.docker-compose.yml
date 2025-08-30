@@ -25,7 +25,6 @@ services:
     networks:
       - hello-wordpress-core-setup-network
     volumes:
-      - ../../..${CMS_PROJECT_PATH}/src/.htaccess:/var/www/html/.htaccess
       #   # Uncomment as needed:
       #   # -----------------------------------------------------------------
       #   # Wordpress Core Files                                          |

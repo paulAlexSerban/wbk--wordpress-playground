@@ -25,7 +25,6 @@ services:
     networks:
       - hello-wordpress-vanilla-network
     volumes:
-      - ../../..${CMS_PROJECT_PATH}/src/.htaccess:/var/www/html/.htaccess
       # -----------------------------------------------------------------
       # Wordpress Core Files                                            |
       # Expose entire Wordpress installation directory to edit themes,  |
