@@ -1,6 +1,6 @@
 ---
 networks:
-  hello-wordpress-network:
+  hello-wordpress-core-setup-network:
     driver: bridge
 
 services:
@@ -24,7 +24,7 @@ services:
     ports:
       - ${WORDPRESS_PORT:-80}:80
     networks:
-      - hello-wordpress-network
+      - hello-wordpress-core-setup-network
     volumes:
       # - ../../..${CMS_PROJECT_PATH}/src/readme.html:/var/www/html/readme.html
     #   # Uncomment as needed:
@@ -67,7 +67,7 @@ services:
       - ../../configuration/env/.${PROJECT_NAME}.compose.env
     restart: always
     networks:
-      - hello-wordpress-network
+      - hello-wordpress-core-setup-network
 
   # ---------------------------------------------------------------------
   # | PhpMyAdmin                                                         |
@@ -83,4 +83,4 @@ services:
     depends_on:
       - mariadb-database
     networks:
-      - hello-wordpress-network
+      - hello-wordpress-core-setup-network
