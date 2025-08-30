@@ -1,1 +1,1 @@
-# Basic-Blog-WP-THEME
+# Wordpress Playground (Workbook)
