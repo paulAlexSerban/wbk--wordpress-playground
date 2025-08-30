@@ -1,9 +1,9 @@
-# Hello Wordpress
+# Hello Wordpress Core Setup
 
 > starter project for Wordpress local development setups
 
 ## Credentials
-wp_admin: username=admin / password=admin / email=admin@hello-wordpress-core-setup.com
+http://localhost:3000/wp_admin -> username=admin / password=admin / email=admin@test.com
 
 ## Troubleshooting
 
