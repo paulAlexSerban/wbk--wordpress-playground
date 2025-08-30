@@ -36,9 +36,11 @@ services:
       # Wordpress Themes & Plugins                                      |
       # If you only want to edit themes and plugins, you can mount      |
       # the directories directly.                                       |
+      # DO NOT MOUNT the whole plugins directory, mount only            |
+      # the specific plugin you want to edit.                           |
       # -----------------------------------------------------------------
       - ../../..${CMS_PROJECT_PATH}/src/wp-content/themes:/var/www/html/wp-content/themes
-      - ../../..${CMS_PROJECT_PATH}/src/wp-content/plugins:/var/www/html/wp-content/plugins
+      # - ../../..${CMS_PROJECT_PATH}/src/wp-content/plugins:/var/www/html/wp-content/plugins
       # -----------------------------------------------------------------
       # Wordpress Uploads                                               |
       # If you want to edit uploads, you can mount the uploads directory|

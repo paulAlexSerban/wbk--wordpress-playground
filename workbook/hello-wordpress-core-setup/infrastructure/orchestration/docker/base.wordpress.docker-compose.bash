@@ -109,50 +109,50 @@ function restore-db() {
 
 function uninstall-default-plugins() {
     echo "[ 🧹 🐳 --- uninstall plugins ]"
-    # docker exec $COMPOSE_PROJECT_NAME wp plugin deactivate --all --allow-root
-    # docker exec $COMPOSE_PROJECT_NAME wp plugin uninstall --all --allow-root
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin deactivate --all --allow-root
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin uninstall --all --allow-root
 
     # example with specific plugins
-    docker exec $COMPOSE_PROJECT_NAME wp plugin delete hello --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp plugin delete akismet --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin delete hello --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin delete akismet --allow-root
 }
 
 function install-core-plugins() {
     echo "[ 🧹 🐳 --- install plugins ]"
     # use akismet only for non profit websites
-    docker exec $COMPOSE_PROJECT_NAME wp plugin install edit-author-slug --activate --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp plugin install stop-spammer-registrations-plugin --activate --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp plugin install updraftplus --activate --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp plugin install social-pug --activate --allow-root
-    # docker exec $COMPOSE_PROJECT_NAME wp plugin install auto-terms-of-service-and-privacy-policy --activate --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp plugin install wpforms-lite --activate --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp plugin install wordpress-seo --activate --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp plugin install pretty-link --activate --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp plugin install wordpress-importer --activate --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp plugin install coming-soon --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install edit-author-slug --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install stop-spammer-registrations-plugin --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install updraftplus --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install social-pug --activate --allow-root
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install auto-terms-of-service-and-privacy-policy --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install wpforms-lite --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install wordpress-seo --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install pretty-link --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install wordpress-importer --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install coming-soon --activate --allow-root
 }
 
 function list-installed-plugins() {
     echo "[ 🧹 🐳 --- list installed plugins ]"
-    docker exec $COMPOSE_PROJECT_NAME wp plugin list --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin list --allow-root
 }
 
 function uninstall-default-themes() {
     echo "[ 🧹 🐳 --- uninstall themes ]"
-    docker exec $COMPOSE_PROJECT_NAME wp theme delete twentytwenty --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp theme delete twentytwentytwo --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp theme delete twentytwentythree --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp theme delete twentytwentyfour --allow-root
-    docker exec $COMPOSE_PROJECT_NAME wp theme delete twentytwentyfive --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwenty --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentytwo --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentythree --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentyfour --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentyfive --allow-root
 }
 
 function install-core-themes() {
     echo "[ 🧹 🐳 --- install theme ]"
-    docker exec $COMPOSE_PROJECT_NAME wp theme install twentytwentyfive --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme install twentytwentyfive --activate --allow-root
     # free themes from https://wordpress.org/themes/author/automattic/
-    # docker exec $COMPOSE_PROJECT_NAME wp theme install mymenu --allow-root
-    # docker exec $COMPOSE_PROJECT_NAME wp theme install coachben --allow-root
-    # docker exec $COMPOSE_PROJECT_NAME wp theme install streamer --allow-root
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme install mymenu --allow-root
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme install coachben --allow-root
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme install streamer --allow-root
 }
 
 function clean-install() {
@@ -160,7 +160,7 @@ function clean-install() {
     for i in {1..3}; do
         SLEEP_INTERVAL=$((SLEEP_INTERVAL * i))
         echo "[ ℹ️  info ] ⏳  Checking if wordpress service is available"
-        docker exec $COMPOSE_PROJECT_NAME wp core is-installed --allow-root && break
+        docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp core is-installed --allow-root && break
         echo "[ ⏳ info ] Wainting for wordpress to be installed - $SLEEP_INTERVAL seconds"
         sleep $SLEEP_INTERVAL
     done
@@ -171,7 +171,7 @@ function clean-install() {
     install-core-plugins
 
     # using wp to install themes and plugins makes /var/www/html/wp-content owned by root so we need to change it back to www-data
-    docker exec $COMPOSE_PROJECT_NAME chown -R www-data:www-data /var/www/html/wp-content
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress chown -R www-data:www-data /var/www/html/wp-content
 }
 
 function help() {

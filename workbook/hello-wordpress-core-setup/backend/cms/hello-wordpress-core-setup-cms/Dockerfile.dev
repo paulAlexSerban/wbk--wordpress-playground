@@ -1,6 +1,4 @@
-ARG WORDPRESS_VERSION
-
-FROM wordpress:${WORDPRESS_VERSION}
+FROM wordpress:6.8.2-php8.1-apache
 LABEL maintainer="paulserban.eu"
 
 # do not install this on production images
@@ -14,8 +12,10 @@ RUN rm -rf /var/lib/apt/lists/* \
 
 COPY ./backend/cms/hello-wordpress-core-setup-cms/src /var/www/html
 COPY ./backend/cms/hello-wordpress-core-setup-cms/src/wp-config.php /var/www/html/wp-config.php
+
 RUN mkdir -p /var/www/html/wp-content/uploads
 COPY ./backend/cms/hello-wordpress-core-setup-cms/src/wp-content/uploads /var/www/html/wp-content/uploads
+
 RUN chown -R www-data:www-data /var/www/html/wp-content/uploads \
     && chown -R www-data:www-data /var/www/html/wp-content/themes \
     && chown -R www-data:www-data /var/www/html/wp-content/plugins \
