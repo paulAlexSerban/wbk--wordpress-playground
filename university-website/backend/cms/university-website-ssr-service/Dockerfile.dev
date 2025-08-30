@@ -1,0 +1,26 @@
+ARG WORDPRESS_VERSION
+
+FROM wordpress:${WORDPRESS_VERSION}
+LABEL maintainer="paulserban.eu"
+
+# do not install this on production images
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    && chmod +x wp-cli.phar \
+    && mv wp-cli.phar /usr/local/bin/wp
+
+RUN rm -rf /var/lib/apt/lists/* \
+  && mkdir -p /var/www/html/wp-content \
+  && chown -R www-data:www-data /var/www/html/wp-content
+
+COPY ./backend/cms/university-website-cms/src /var/www/html
+COPY ./backend/cms/university-website-cms/src/wp-config.php /var/www/html/wp-config.php
+COPY ./backend/cms/university-website-cms/src/wp-content/themes /var/www/html/wp-content/themes
+
+RUN mkdir -p /var/www/html/wp-content/uploads
+COPY ./backend/cms/university-website-cms/src/wp-content/uploads /var/www/html/wp-content/uploads
+
+RUN chown -R www-data:www-data /var/www/html/wp-content/uploads \
+    && chown -R www-data:www-data /var/www/html/wp-content/themes \
+    && chown -R www-data:www-data /var/www/html/wp-content/plugins \
+    && chown -R www-data:www-data /var/www/html/wp-config.php \
+    && chown -R www-data:www-data /var/www/html
