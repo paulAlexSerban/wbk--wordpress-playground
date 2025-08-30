@@ -1,0 +1,84 @@
+---
+networks:
+  hello-wordpress-vanilla-network:
+    driver: bridge
+
+services:
+  # ---------------------------------------------------------------------
+  # | Wordpress                                                          |
+  # ---------------------------------------------------------------------
+  wordpress:
+    build:
+      context: ../../../ # set context to root of monorepo project
+      dockerfile: ./${CMS_PROJECT_PATH}/Dockerfile.dev
+      args:
+        - WORDPRESS_VERSION=${WORDPRESS_VERSION}
+    container_name: ${COMPOSE_PROJECT_NAME}_wordpress
+    env_file:
+      - ../../configuration/env/.${PROJECT_NAME}.compose.env
+    depends_on:
+      - mariadb-database
+      - phpmyadmin
+    restart: always
+    ports:
+      - ${WORDPRESS_PORT:-80}:80
+    networks:
+      - hello-wordpress-vanilla-network
+    volumes:
+      - ../../..${CMS_PROJECT_PATH}/src/.htaccess:/var/www/html/.htaccess
+      # -----------------------------------------------------------------
+      # Wordpress Core Files                                            |
+      # Expose entire Wordpress installation directory to edit themes,  |
+      # and core files                                                  |
+      # -----------------------------------------------------------------
+      # - ../../..${CMS_PROJECT_PATH}/src:/var/www/html
+      # -----------------------------------------------------------------
+      # Wordpress Themes & Plugins                                      |
+      # If you only want to edit themes and plugins, you can mount      |
+      # the directories directly.                                       |
+      # -----------------------------------------------------------------
+      - ../../..${CMS_PROJECT_PATH}/src/wp-content/themes:/var/www/html/wp-content/themes
+      - ../../..${CMS_PROJECT_PATH}/src/wp-content/plugins:/var/www/html/wp-content/plugins
+      # -----------------------------------------------------------------
+      # Wordpress Uploads                                               |
+      # If you want to edit uploads, you can mount the uploads directory|
+      # directly.                                                       |
+      # -----------------------------------------------------------------
+      - ../../..${CMS_PROJECT_PATH}/src/wp-content/uploads:/var/www/html/wp-content/uploads
+      # -----------------------------------------------------------------
+      # Wordpress Configuration                                         |
+      # Mount the wp-config.php file to edit the configuration.         |
+      # -----------------------------------------------------------------
+      - ../../..${CMS_PROJECT_PATH}/src/wp-config.php:/var/www/html/wp-config.php
+      # -----------------------------------------------------------------
+      # Wordpress Content                                               |
+      # -----------------------------------------------------------------
+      # - ../../..${CMS_PROJECT_PATH}/src/wp-content:/var/www/html/wp-content
+
+  # ---------------------------------------------------------------------
+  # | MariaDB Database                                                  |
+  # ---------------------------------------------------------------------
+  mariadb-database:
+    image: mariadb:${MARIADB_VERSION}
+    container_name: ${COMPOSE_PROJECT_NAME}_database
+    env_file:
+      - ../../configuration/env/.${PROJECT_NAME}.compose.env
+    restart: always
+    networks:
+      - hello-wordpress-vanilla-network
+
+  # ---------------------------------------------------------------------
+  # | PhpMyAdmin                                                         |
+  # ---------------------------------------------------------------------
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:${PHPMYADMIN_VERSION}
+    container_name: ${COMPOSE_PROJECT_NAME}_phpmyadmin
+    restart: always
+    ports:
+      - ${PHPMYADMIN_PORT}:80
+    env_file:
+      - ../../configuration/env/.${PROJECT_NAME}.compose.env
+    depends_on:
+      - mariadb-database
+    networks:
+      - hello-wordpress-vanilla-network
