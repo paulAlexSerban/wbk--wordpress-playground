@@ -120,16 +120,21 @@ function uninstall-default-plugins() {
 function install-core-plugins() {
     echo "[ 🧹 🐳 --- install plugins ]"
     # use akismet only for non profit websites
-    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install edit-author-slug --activate --allow-root
+    # commented because it causes issues with the PHP version
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install edit-author-slug --activate --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install stop-spammer-registrations-plugin --activate --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install updraftplus --activate --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install social-pug --activate --allow-root
+    # commented because it causes issues with the PHP version
     # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install auto-terms-of-service-and-privacy-policy --activate --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install wpforms-lite --activate --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install wordpress-seo --activate --allow-root
-    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install pretty-link --activate --allow-root
+    # commented because it causes issues with the PHP version
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install pretty-link --activate --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install wordpress-importer --activate --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install coming-soon --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install all-in-one-wp-security-and-firewall --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install aios-firewall-loader --activate --allow-root
 }
 
 function list-installed-plugins() {
