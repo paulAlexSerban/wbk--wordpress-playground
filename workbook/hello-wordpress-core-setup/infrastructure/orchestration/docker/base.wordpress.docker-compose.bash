@@ -121,20 +121,31 @@ function install-core-plugins() {
     echo "[ 🧹 🐳 --- install plugins ]"
     # use akismet only for non profit websites
     # commented because it causes issues with the PHP version
-    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install edit-author-slug --activate --allow-root
-    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install stop-spammer-registrations-plugin --activate --allow-root
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install edit-author-slug --activate --allow-root # Use to change 
+    # author slug so it does not display the username of the author in the URL when visiting the author page - after using to update - deactivate the plugin
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install stop-spammer-registrations-plugin --activate --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install updraftplus --activate --allow-root
-    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install social-pug --activate --allow-root
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install social-pug --activate --allow-root # install if floating social media icons are needed
     # commented because it causes issues with the PHP version
     # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install auto-terms-of-service-and-privacy-policy --activate --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install wpforms-lite --activate --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install wordpress-seo --activate --allow-root
     # commented because it causes issues with the PHP version
-    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install pretty-link --activate --allow-root
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install pretty-link --activate --allow-root # install if needed
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install wordpress-importer --activate --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install coming-soon --activate --allow-root
-    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install all-in-one-wp-security-and-firewall --activate --allow-root
-    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install aios-firewall-loader --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install wp-crontrol --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install query-monitor --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install wp-file-manager --activate --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install sql-executioner --activate --allow-root
+
+    # SECURITY PLUGINS
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install all-in-one-wp-security-and-firewall --activate --allow-root
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install aios-firewall-loader --activate --allow-root
+    # WP Armour - Honeypot Anti Spam
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install honeypot --activate --allow-root 
+    # Jetpack by Automatic - Security, performance, and marketing tools made by WordPress experts.
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin install jetpack --activate --allow-root  
 }
 
 function list-installed-plugins() {
