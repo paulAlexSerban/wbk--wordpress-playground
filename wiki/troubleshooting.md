@@ -17,6 +17,6 @@ sudo chown -R 33:33 ./hello-wordpress-core-setup/backend/cms/hello-wordpress-cor
 - go to FPT File Manager and rename plugin director in `/wp-content/plugins/PLUGIN_DIR`
 
 ## Locked out by Security Plugin AIOS (All-in-on Security)
-- you need to rest it's setting
+- you need to reset it's setting
 - use previous tip: "How to deactivate plugin if locked out of dashboard"
 - install - All-in-One WP Security Reset plugin - follow - https://www.tipsandtricks-hq.com/wordpress-security-and-firewall-plugin
