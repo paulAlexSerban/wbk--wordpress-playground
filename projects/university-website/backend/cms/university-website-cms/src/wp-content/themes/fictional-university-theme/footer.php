@@ -1,5 +1,4 @@
-<footer>Hello footer.php</footer>
-<?php wp_footer(); ?>
-</body>
-
+        <footer>hello footer.php</footer>
+        <?php wp_footer(); ?>
+    </body>
 </html>

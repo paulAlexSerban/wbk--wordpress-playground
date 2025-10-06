@@ -8,4 +8,4 @@
 </head>
 
 <body>
-    <header>Hello header.php</header>
+    <header>hello header.php</header>

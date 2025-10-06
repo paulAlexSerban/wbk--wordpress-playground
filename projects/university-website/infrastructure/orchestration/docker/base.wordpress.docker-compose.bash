@@ -169,7 +169,7 @@ function list-installed-plugins() {
 
 function uninstall-default-themes() {
     echo "[ 🧹 🐳 --- uninstall themes ]"
-    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwenty --allow-root
+    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwenty --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentytwo --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentythree --allow-root
     docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentyfour --allow-root
