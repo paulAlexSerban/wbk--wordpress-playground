@@ -79,6 +79,23 @@ add_action('init', 'wp_fse_practice_pattern_categories');
  * Enqueue theme assets
  */
 function wp_fse_practice_enqueue_assets() {
+    // Enqueue Bootstrap CSS
+    wp_enqueue_style(
+        'bootstrap',
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css',
+        array(),
+        '5.3.2'
+    );
+    
+    // Enqueue Bootstrap JavaScript
+    wp_enqueue_script(
+        'bootstrap',
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js',
+        array(),
+        '5.3.2',
+        true
+    );
+    
     // Enqueue carousel JavaScript
     wp_enqueue_script(
         'wp-fse-practice-carousel',
