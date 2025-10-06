@@ -74,6 +74,14 @@ function logs() {
     docker compose --env-file ${ENV_FILE} --file ${COMPOSE_FILE_DEV} logs --follow
 }
 
+function restart-container() {
+    echo "[ 🔄 🐳 --- restart container ${CONTAINER_NAME} ]"
+    docker compose --env-file ${ENV_FILE} --file ${COMPOSE_FILE_DEV} restart ${CONTAINER_NAME}
+    list
+    # show logs of the container
+    docker compose --env-file ${ENV_FILE} --file ${COMPOSE_FILE_DEV} logs --follow ${CONTAINER_NAME}
+}
+
 function save-backup-file() {
     echo "[ 📦 🐳 --- save backup file ]"
     if [ -f "${DATABASE_BACKUP_DIR}/${APP_NAME}.sql" ]; then

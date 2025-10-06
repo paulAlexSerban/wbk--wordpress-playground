@@ -3,6 +3,9 @@ INFRA_ORCHESTRATION_SCRIPTS_DOCKER_DIR := ./infrastructure/orchestration/docker
 compose-up:
 	@bash $(INFRA_ORCHESTRATION_SCRIPTS_DOCKER_DIR)/base.wordpress.docker-compose.bash --phase=up --app-name=wp-fullsite-editing
 
+compose-restart-wordpress-container:
+	@bash $(INFRA_ORCHESTRATION_SCRIPTS_DOCKER_DIR)/base.wordpress.docker-compose.bash --phase=restart-container --app-name=wp-fullsite-editing --container=wordpress
+
 compose-down:
 	@bash $(INFRA_ORCHESTRATION_SCRIPTS_DOCKER_DIR)/base.wordpress.docker-compose.bash --phase=down --app-name=wp-fullsite-editing
 
