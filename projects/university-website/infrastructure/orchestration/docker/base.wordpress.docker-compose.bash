@@ -67,14 +67,14 @@ function restart-container() {
 
 function down() {
     echo "[ 🛑 🐳 --- compose down ]"
-    # backup-db
+    backup-db
     docker compose --env-file ${ENV_FILE} --file ${COMPOSE_FILE_DEV} down
     list
 }
 
 function down-clean() {
     echo "[ 🛑 🐳 --- compose down clean ]"
-    # backup-db
+    backup-db
     docker compose --env-file ${ENV_FILE} --file ${COMPOSE_FILE_DEV} down --volumes --rmi all
     list
 }
