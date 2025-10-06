@@ -1,6 +1,4 @@
-ARG WORDPRESS_VERSION
-
-FROM wordpress:${WORDPRESS_VERSION}
+FROM wordpress:6.8.3-php8.1-apache
 LABEL maintainer="paulserban.eu"
 
 # do not install this on production images
@@ -14,7 +12,6 @@ RUN rm -rf /var/lib/apt/lists/* \
 
 COPY ./backend/cms/university-website-cms/src /var/www/html
 COPY ./backend/cms/university-website-cms/src/wp-config.php /var/www/html/wp-config.php
-COPY ./backend/cms/university-website-cms/src/wp-content/themes /var/www/html/wp-content/themes
 
 RUN mkdir -p /var/www/html/wp-content/uploads
 COPY ./backend/cms/university-website-cms/src/wp-content/uploads /var/www/html/wp-content/uploads
