@@ -1,0 +1,33 @@
+{
+    "name": "@fictional-university-theme/ui",
+    "version": "0.0.0",
+    "description": "",
+    "scripts": {
+        "develop": "export NODE_ENV=development && webpack --config build/webpack.dev.js --watch --progress --stats-children",
+        "build": "export NODE_ENV=development && webpack --config build/webpack.dev.js",
+        "build:prod": "export NODE_ENV=production && webpack --config build/webpack.prod.js"
+    },
+    "dependencies": {
+        "@babel/core": "^7.26.10",
+        "@babel/plugin-proposal-class-properties": "^7.18.6",
+        "@babel/preset-env": "^7.20.2",
+        "@glidejs/glide": "^3.7.1",
+        "axios": "^1.4.0",
+        "babel-loader": "^9.1.2",
+        "copy-webpack-plugin": "^13.0.0",
+        "css-loader": "^6.7.3",
+        "dotenv": "^16.3.1",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-webpack-plugin": "^4.0.0",
+        "glob": "^11.0.3",
+        "inquirer": "^12.9.6",
+        "mini-css-extract-plugin": "^2.7.2",
+        "normalize.css": "^8.0.1",
+        "sass": "^1.93.2",
+        "sass-loader": "^16.0.5",
+        "source-map-loader": "^4.0.1",
+        "style-loader": "^3.3.3",
+        "webpack": "^5.84.1",
+        "webpack-cli": "^5.0.1"
+    }
+}
