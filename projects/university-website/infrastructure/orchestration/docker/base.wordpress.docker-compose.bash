@@ -95,7 +95,24 @@ function backup-db() {
     echo "[ 📦 🐳 --- backup db ]"
     save-backup-file
     mkdir -p ${DATABASE_BACKUP_DIR}/
-    docker exec -it ${APP_NAME}_database mariadb-dump -u${DATABASE_USER} -p${DATABASE_PASSWORD} ${COMPOSE_PROJECT_NAME} >${DATABASE_BACKUP_DIR}/${APP_NAME}.sql
+    local BACKUP_FILE="${DATABASE_BACKUP_DIR}/${APP_NAME}.sql"
+    
+    # Try to create the backup file
+    if docker exec -it ${APP_NAME}_database mariadb-dump -u${DATABASE_USER} -p${DATABASE_PASSWORD} ${COMPOSE_PROJECT_NAME} >"$BACKUP_FILE" 2>/dev/null; then
+        echo "[ ✅ success ] Database backup created: $BACKUP_FILE"
+    else
+        # If permission denied, create timestamped file
+        local TIMESTAMP=$(date +%Y%m%d%H%M%S)
+        local ALT_BACKUP_FILE="${DATABASE_BACKUP_DIR}/${APP_NAME}.${TIMESTAMP}.sql"
+        echo "[ ⚠️  warning ] Permission denied on $BACKUP_FILE, trying $ALT_BACKUP_FILE"
+        
+        if docker exec -it ${APP_NAME}_database mariadb-dump -u${DATABASE_USER} -p${DATABASE_PASSWORD} ${COMPOSE_PROJECT_NAME} >"$ALT_BACKUP_FILE"; then
+            echo "[ ✅ success ] Database backup created: $ALT_BACKUP_FILE"
+        else
+            echo "[ ❌ error ] Failed to create backup file"
+            return 1
+        fi
+    fi
 }
 
 function restore-db() {
