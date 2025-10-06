@@ -76,6 +76,21 @@ function wp_fse_practice_pattern_categories() {
 add_action('init', 'wp_fse_practice_pattern_categories');
 
 /**
+ * Enqueue theme assets
+ */
+function wp_fse_practice_enqueue_assets() {
+    // Enqueue carousel JavaScript
+    wp_enqueue_script(
+        'wp-fse-practice-carousel',
+        get_stylesheet_directory_uri() . '/assets/js/carousel.js',
+        array(),
+        wp_get_theme()->get('Version'),
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'wp_fse_practice_enqueue_assets');
+
+/**
  * Customize excerpt length
  */
 function wp_fse_practice_excerpt_length($length) {

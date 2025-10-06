@@ -40,6 +40,132 @@ Template: twentytwentyfive
     transform: translateY(-2px);
 }
 
+/* Blog Carousel Styles */
+.blog-carousel-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-carousel-query .wp-block-post-template {
+    display: flex !important;
+    transition: transform 0.5s ease-in-out;
+    width: calc(100% * var(--total-slides, 6));
+}
+
+.carousel-slide {
+    min-width: calc(100% / 3);
+    flex-shrink: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel-slide:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-navigation {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.carousel-btn {
+    background: var(--wp--preset--color--accent-3);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.carousel-btn:hover {
+    background: var(--wp--preset--color--contrast);
+    transform: scale(1.1);
+}
+
+.carousel-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: scale(1);
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--wp--preset--color--contrast-3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.carousel-dot.active {
+    background: var(--wp--preset--color--accent-3);
+    transform: scale(1.2);
+}
+
+.post-categories {
+    margin-bottom: 0.5rem;
+}
+
+.post-categories a {
+    background: var(--wp--preset--color--accent-3);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .carousel-slide {
+        min-width: calc(100% / 2);
+    }
+    
+    .blog-carousel-query .wp-block-post-template {
+        width: calc(100% * var(--total-slides, 6) / 2);
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-slide {
+        min-width: 100%;
+    }
+    
+    .blog-carousel-query .wp-block-post-template {
+        width: calc(100% * var(--total-slides, 6));
+    }
+    
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-navigation {
+        gap: 1rem;
+    }
+}
+
 /* Enhanced blog post styling */
 .wp-block-post-template .wp-block-group {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
