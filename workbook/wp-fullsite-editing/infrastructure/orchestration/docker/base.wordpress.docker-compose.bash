@@ -115,8 +115,8 @@ function uninstall-default-plugins() {
     # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin uninstall --all --allow-root
 
     # # example with specific plugins
-    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin delete hello --allow-root
-    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin delete akismet --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin delete hello --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp plugin delete akismet --allow-root
 }
 
 function install-core-plugins() {
@@ -141,10 +141,10 @@ function list-installed-plugins() {
 
 function uninstall-default-themes() {
     echo "[ 🧹 🐳 --- uninstall themes ]"
-    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwenty --allow-root
-    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentytwo --allow-root
-    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentythree --allow-root
-    # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentyfour --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwenty --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentytwo --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentythree --allow-root
+    docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentyfour --allow-root
     # docker exec ${COMPOSE_PROJECT_NAME}_wordpress wp theme delete twentytwentyfive --allow-root
 }
 
