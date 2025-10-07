@@ -1,0 +1,92 @@
+/* Service Details Block */
+.phoenix-service-details-block {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.phoenix-service-details-block h3 {
+    color: #007cba !important;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #007cba;
+    padding-bottom: 0.5rem;
+}
+
+
+/* Enhanced paragraph styling for custom fields */
+.phoenix-service-details-block p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.phoenix-service-details-block p strong {
+    color: #34495e;
+    min-width: 120px;
+    display: inline-block;
+}
+
+/* Button styling within custom field blocks */
+.phoenix-service-details-block .wp-block-buttons {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .phoenix-service-details-block {
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+    
+    .phoenix-service-details-block p strong{
+        display: block;
+        margin-bottom: 0.25rem;
+        min-width: auto;
+    }
+}
+
+/* Query Loop Styling */
+.service-loop-item {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.service-loop-item:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.service-loop-item {
+    border-left: 4px solid #007cba;
+}
+
+
+/* Responsive adjustments for query loops */
+@media (max-width: 768px) {
+    .service-loop-item {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Admin editor styling */
+.block-editor-block-list__layout .phoenix-service-details-block{
+    position: relative;
+}
+
+.block-editor-block-list__layout .phoenix-service-details-block::before {
+    content: "Custom Fields Block";
+    position: absolute;
+    top: -1.5rem;
+    left: 0;
+    background: #007cba;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px 4px 0 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 1;
+}

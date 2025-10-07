@@ -1,0 +1,14 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "phoenix/services-blocks",
+    "title": "Phoenix Services Blocks",
+    "category": "design",
+    "description": "Services block variations for Phoenix Art School",
+    "supports": {
+        "html": false
+    },
+    "editorScript": "file:./block-variations.js",
+    "editorStyle": "file:./block-variations.css",
+    "style": "file:./block-variations.css"
+}
