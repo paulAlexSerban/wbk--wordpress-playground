@@ -13,4 +13,5 @@
 - [Wordpress frontend](http://hello-wordpress-core-setup.local)
 - [Wordpress admin dashboard](http://hello-wordpress-core-setup.local/wp_admin)
 
-
+## Resources
+- https://github.com/nezhar/wordpress-docker-compose
