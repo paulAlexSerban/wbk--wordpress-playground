@@ -3,6 +3,9 @@ networks:
   hello-wordpress-vanilla-network:
     driver: bridge
 
+volumes:
+  db_data:
+
 services:
   # ---------------------------------------------------------------------
   # | Wordpress                                                          |
@@ -18,19 +21,19 @@ services:
       - ../../configuration/env/.${PROJECT_NAME}.compose.env
     depends_on:
       - mariadb-database
-      - phpmyadmin
     restart: always
     ports:
-      - ${WORDPRESS_PORT:-80}:80
+      - ${IP}:${WORDPRESS_PORT}:80 # change ip if required
     networks:
       - hello-wordpress-vanilla-network
     volumes:
+      - ../../..${CMS_PROJECT_PATH}/config/wp_php.ini:/usr/local/etc/php/conf.d/conf.ini
       # -----------------------------------------------------------------
       # Wordpress Core Files                                            |
       # Expose entire Wordpress installation directory to edit themes,  |
       # and core files                                                  |
       # -----------------------------------------------------------------
-      # - ../../..${CMS_PROJECT_PATH}/src:/var/www/html
+      # - ../../..${CMS_PROJECT_PATH}/src:/var/www/html # Full wordpress project
       # -----------------------------------------------------------------
       # Wordpress Themes & Plugins                                      |
       # If you only want to edit themes and plugins, you can mount      |
@@ -38,32 +41,47 @@ services:
       # DO NOT MOUNT the whole plugins directory, mount only            |
       # the specific plugin you want to edit.                           |
       # -----------------------------------------------------------------
-      - ../../..${CMS_PROJECT_PATH}/src/wp-content/themes:/var/www/html/wp-content/themes
-      # - ../../..${CMS_PROJECT_PATH}/src/wp-content/plugins:/var/www/html/wp-content/plugins
+      - ../../..${CMS_PROJECT_PATH}/app/wp-content/themes:/var/www/html/wp-content/themes
+      # - ../../..${CMS_PROJECT_PATH}/app/wp-content/plugins:/var/www/html/wp-content/plugins
+      # - ../../..${CMS_PROJECT_PATH}/plugins/plugin-name/trunk/:/var/www/html/wp-content/plugins/plugin-name # Plugin development
+      # - ../../..${CMS_PROJECT_PATH}/themes/theme-name/trunk/:/var/www/html/wp-content/themes/theme-name # Theme development
       # -----------------------------------------------------------------
       # Wordpress Uploads                                               |
       # If you want to edit uploads, you can mount the uploads directory|
       # directly.                                                       |
       # -----------------------------------------------------------------
-      - ../../..${CMS_PROJECT_PATH}/src/wp-content/uploads:/var/www/html/wp-content/uploads
+      - ../../..${CMS_PROJECT_PATH}/app/wp-content/uploads:/var/www/html/wp-content/uploads
       # -----------------------------------------------------------------
       # Wordpress Configuration                                         |
       # Mount the wp-config.php file to edit the configuration.         |
       # -----------------------------------------------------------------
-      - ../../..${CMS_PROJECT_PATH}/src/wp-config.php:/var/www/html/wp-config.php
+      - ../../..${CMS_PROJECT_PATH}/app/wp-config.php:/var/www/html/wp-config.php
       # -----------------------------------------------------------------
       # Wordpress Content                                               |
       # -----------------------------------------------------------------
-      # - ../../..${CMS_PROJECT_PATH}/src/wp-content:/var/www/html/wp-content
+      # - ../../..${CMS_PROJECT_PATH}/app/wp-content:/var/www/html/wp-content
+
+    links:
+      - mariadb-database
 
   # ---------------------------------------------------------------------
   # | MariaDB Database                                                  |
   # ---------------------------------------------------------------------
   mariadb-database:
-    image: mariadb:${MARIADB_VERSION}
+    image: mariadb:${MARIADB_VERSION} # https://hub.docker.com/_/mysql/ - or mariadb https://hub.docker.com/_/mariadb
+    # platform: linux/x86_64  # Uncomment if your machine is running on arm (ex: Apple Silicon processor)
     container_name: ${COMPOSE_PROJECT_NAME}_database
     env_file:
       - ../../configuration/env/.${PROJECT_NAME}.compose.env
+    ports:
+      - ${IP}:3306:3306 # change ip if required
+    command: [
+        '--character-set-server=utf8mb4',
+        '--collation-server=utf8mb4_unicode_ci'
+    ]
+    volumes:
+      - ../../../database/wp-data:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
     restart: always
     networks:
       - hello-wordpress-vanilla-network
@@ -73,13 +91,31 @@ services:
   # ---------------------------------------------------------------------
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:${PHPMYADMIN_VERSION}
+    platform: linux/x86_64  # Uncomment if your machine is running on arm (ex: Apple Silicon processor)
     container_name: ${COMPOSE_PROJECT_NAME}_phpmyadmin
     restart: always
     ports:
-      - ${PHPMYADMIN_PORT}:80
-    env_file:
+      - ${IP}:${PHPMYADMIN_PORT}:80
+    env_file:      
+    # https://docs.phpmyadmin.net/en/latest/setup.html#docker-environment-variables
       - ../../configuration/env/.${PROJECT_NAME}.compose.env
+    links:
+      - mariadb-database:mariadb-database
     depends_on:
       - mariadb-database
+    volumes:
+     - ../../../backend/db-admin/phpmyadmin/config/pma_php.ini:/usr/local/etc/php/conf.d/conf.ini
+     - ../../../backend/db-admin/phpmyadmin/config/pma_config.php:/etc/phpmyadmin/config.user.inc.php
     networks:
       - hello-wordpress-vanilla-network
+
+  # wpcli:
+  #   image: wordpress:cli
+  #   volumes:
+  #     - ../../..${CMS_PROJECT_PATH}/config/wp_php.ini:/usr/local/etc/php/conf.d/conf.ini
+  #     - ../../..${CMS_PROJECT_PATH}/app:/var/www/html
+  #   depends_on:
+  #     - mariadb-database
+  #     - wordpress
+  #   networks:
+  #     - hello-wordpress-vanilla-network

@@ -49,10 +49,18 @@ function list() {
 
 function up() {
     echo "[ 🟢 🐳 --- compose up ]"
+    setup_hostname
     docker compose --env-file ${ENV_FILE} --file ${COMPOSE_FILE_DEV} up --detach --build
     list
     restore-db
     clean-install
+}
+
+function setup_hostname() {
+    # check if /etc/hosts file contains the line "127.0.0.1 ${PROJECT_NAME}.local" if not add it
+    if ! grep -q "127.0.0.1 ${PROJECT_NAME}.local" /etc/hosts; then
+        sudo echo "127.0.0.1 ${PROJECT_NAME}.local" | sudo tee -a /etc/hosts
+    fi
 }
 
 function down() {
