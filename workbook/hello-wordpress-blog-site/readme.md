@@ -1,6 +1,17 @@
 # Hello Wordpress Blog Site
-
-> starter project for Wordpress local development setups
+- starter project for Wordpress local development setups
+- project name slug: hello-wordpress-blog-site
 
 ## Credentials
-http://localhost:3000/wp_admin -> username=admin / password=admin / email=admin@test.com
+[Wordpress admin dashboard](http://hello-wordpress-blog-site.local/wp_admin)
+
+- username=admin
+- password=admin 
+- email=admin@test.com
+
+## Links for local development
+- [Wordpress frontend](http://hello-wordpress-blog-site.local)
+- [Wordpress admin dashboard](http://hello-wordpress-blog-site.local/wp_admin)
+
+## Resources
+- https://github.com/nezhar/wordpress-docker-compose
